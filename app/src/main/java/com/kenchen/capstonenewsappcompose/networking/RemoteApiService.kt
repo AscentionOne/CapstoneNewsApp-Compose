@@ -9,7 +9,6 @@ interface RemoteApiService {
     @GET("top-headlines")
     suspend fun getTopHeadlinesByCountry(
         @Query("country") country: String,
-        @Query("apiKey") apiKey:
-        String,
+        @Query("apiKey") apiKey: String,
     ): GetNewsResponse
 }
