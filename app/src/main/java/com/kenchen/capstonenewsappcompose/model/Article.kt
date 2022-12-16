@@ -13,7 +13,6 @@ import com.squareup.moshi.Json
  * */
 @Entity
 data class Article(
-//    val id: String = UUID.randomUUID().toString(),
     @TypeConverters(SourceConverter::class)
     @field:Json(name = "source") val source: Source,
     @field:Json(name = "author") val author: String?,
@@ -25,11 +24,3 @@ data class Article(
     @field:Json(name = "publishedAt") val publishedAt: String,
     @field:Json(name = "content") val content: String? = null,
 )
-
-//@Entity
-//data class Article{
-//    @PrimaryKey
-//    val id: String = UUID.randomUUID().toString(),
-//}
-//
-//data class SourceAndArticle()

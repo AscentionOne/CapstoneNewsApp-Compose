@@ -1,17 +1,14 @@
 package com.kenchen.capstonenewsappcompose.model
 
-import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.squareup.moshi.Json
-import kotlinx.parcelize.Parcelize
 
 /**
 * Source data class
 * TODO: can potentially changed to use DTO
 * */
 
-@Parcelize
 @Entity
 data class Source(
     @field:Json(name = "id") val id: String? = null,
@@ -22,4 +19,4 @@ data class Source(
     @field:Json(name = "category") val category: String? = null,
     @field:Json(name = "language") val language: String? = null,
     @field:Json(name = "country") val country: String? = null,
-) : Parcelable
+)
