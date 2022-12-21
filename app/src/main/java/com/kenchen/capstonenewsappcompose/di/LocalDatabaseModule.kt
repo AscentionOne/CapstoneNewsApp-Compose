@@ -48,12 +48,12 @@ object LocalDatabaseModule {
             .build()
     }
 
-    @Singleton
-    @Provides
-    fun providePrefsStore(@ApplicationContext context: Context) : DataStore<Preferences> {
-        return PreferenceDataStoreFactory.create {
-                context.preferencesDataStoreFile(name = "settings")
-            }
-    }
+//    @Singleton
+//    @Provides
+//    fun providePrefsStore(@ApplicationContext context: Context) : DataStore<Preferences> {
+//        return PreferenceDataStoreFactory.create {
+//                context.preferencesDataStoreFile(name = "settings")
+//            }
+//    }
 
 }
