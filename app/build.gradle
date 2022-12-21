@@ -71,7 +71,17 @@ dependencies {
     debugImplementation "androidx.compose.ui:ui-tooling:$compose_ui_version"
     debugImplementation "androidx.compose.ui:ui-test-manifest:$compose_ui_version"
 
-// Retrofit
+    // Material 3
+    implementation 'androidx.compose.material3:material3:1.0.1'
+
+    // Use collectAsStateWithLifecycle on Flow
+    implementation "androidx.lifecycle:lifecycle-runtime-compose:2.6.0-alpha03"
+
+    // ViewModel - compose
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.5.1")
+    implementation("androidx.compose.runtime:runtime-livedata:1.3.2")
+
+    // Retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
 
     // Retrofit-moshi converter
@@ -90,16 +100,19 @@ dependencies {
     androidTestImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4"
 
     // ViewModel lifecycle
-    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1'
+//    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1'
 
     // LiveData lifecycle
-    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.5.1'
+//    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.5.1'
 
     // Activity
 //    implementation 'androidx.activity:activity-ktx:1.6.1'
 
-    // Glide to Load Image and use Cache
-    implementation "com.github.bumptech.glide:glide:4.12.0"
+    // Glide to Load Image and use Cache - Compose
+    implementation "com.github.bumptech.glide:compose:1.0.0-alpha.1"
+
+    // Coil Image - Compose
+    implementation "io.coil-kt:coil-compose:2.2.2"
 
     // Worker
     implementation "androidx.work:work-runtime-ktx:2.7.1"
@@ -125,6 +138,9 @@ dependencies {
     // Hilt
     implementation("com.google.dagger:hilt-android:2.44")
     kapt("com.google.dagger:hilt-android-compiler:2.44")
+    // Hilt with navigation
+    implementation("androidx.hilt:hilt-navigation-compose:1.0.0")
+
 
     // Hilt instrumented test
     androidTestImplementation("com.google.dagger:hilt-android-testing:2.44")
