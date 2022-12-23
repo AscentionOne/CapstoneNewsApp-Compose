@@ -11,4 +11,10 @@ interface RemoteApiService {
         @Query("country") country: String,
         @Query("apiKey") apiKey: String,
     ): GetNewsResponse
+
+    @GET("top-headlines")
+    suspend fun getTopHeadlinesBySource(
+        @Query("sources") sources: String,
+        @Query("apiKey") apiKey: String,
+    ): GetNewsResponse
 }
