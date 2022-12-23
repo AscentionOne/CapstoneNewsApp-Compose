@@ -9,6 +9,8 @@ interface NewsRepository {
 
     fun getArticles(): Flow<ArticleState>
 
+    fun getArticleByTitle(title: String): Flow<ArticleState>
+
     suspend fun addArticles(articles: List<Article>)
 
     suspend fun clearArticles()

@@ -44,7 +44,8 @@ class NewsRepositoryImp @Inject constructor(
 
             try {
                 println("success")
-                val result = remoteApi.getTopHeadlinesByCountry("us")
+                val result = remoteApi.getTopHeadlinesBySources("bbc-news")
+//                val result = remoteApi.getTopHeadlinesByCountry("us")
                 println("success1")
 
                 emit(ArticleState.Ready(result))
@@ -61,6 +62,9 @@ class NewsRepositoryImp @Inject constructor(
                 }
                 println("success4")
 
+                Log.d("article",
+                    articleDao.retrieveArticleByTitle("After an epic journey ends, what happens next?")
+                        .toString())
 
             } catch (error: Exception) {
                 println("Throw error")
@@ -73,6 +77,13 @@ class NewsRepositoryImp @Inject constructor(
             }
 
 
+        }
+    }
+
+    override fun getArticleByTitle(title: String): Flow<ArticleState> {
+        return flow {
+            val article = articleDao.retrieveArticleByTitle(title)
+            emit(ArticleState.Ready(listOf(article)))
         }
     }
 
