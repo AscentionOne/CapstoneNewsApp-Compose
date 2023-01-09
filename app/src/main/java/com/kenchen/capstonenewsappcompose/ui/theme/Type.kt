@@ -12,19 +12,27 @@ val Montserrat = FontFamily(
     Font(R.font.montserrat_regular)
 )
 
-val FatFace = FontFamily(
-    Font(R.font.abril_fatface_regular)
-)
-
 // Set of Material typography styles to start with
 val Typography = Typography(
     defaultFontFamily = Montserrat,
+    h1 = TextStyle(
+        fontWeight = FontWeight.Normal,
+        fontSize = 28.sp,
+    ),
     h2 = TextStyle(
         fontWeight = FontWeight.Normal,
         fontSize = 20.sp,
     ),
+    h3 = TextStyle(
+        fontWeight = FontWeight.Normal,
+        fontSize = 16.sp,
+    ),
     body1 = TextStyle(
         fontWeight = FontWeight.Normal,
         fontSize = 16.sp,
-    )
+    ),
+    caption = TextStyle(
+        fontWeight = FontWeight.Normal,
+        fontSize = 12.sp,
+    ),
 )
