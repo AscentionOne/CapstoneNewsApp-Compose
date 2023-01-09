@@ -20,10 +20,12 @@ class RemoteApiImp @Inject constructor(private val remoteApiService: RemoteApiSe
         return data.articles.shuffled()
     }
 
+    /**
+     * get top headline news by news source. The shuffle function is to let user know that the
+     * news is actually updating. Since the news api will only update the news in period of time
+     * */
     override suspend fun getTopHeadlinesBySources(newsSource: String): List<Article> {
         val data = remoteApiService.getTopHeadlinesBySource(newsSource, API_KEY)
-        return data.articles
+        return data.articles.shuffled()
     }
-
-
 }
