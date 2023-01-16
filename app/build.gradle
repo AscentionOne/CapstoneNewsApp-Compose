@@ -1,7 +1,7 @@
 plugins {
-    id 'com.android.application'
-    id 'org.jetbrains.kotlin.android'
-    id 'kotlin-kapt'
+    id("com.android.application")
+    id("org.jetbrains.kotlin.android")
+    id("kotlin-kapt")
     id("com.google.dagger.hilt.android")
 }
 
@@ -16,7 +16,8 @@ android {
         versionCode 1
         versionName "1.0"
 
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "com.kenchen.capstonenewsappcompose.CustomTestRunner"
+//        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
             useSupportLibrary true
         }
@@ -25,11 +26,9 @@ android {
     kapt {
         correctErrorTypes = true
     }
-
-    testOptions{
+    testOptions {
         unitTests.returnDefaultValues = true
     }
-
     buildTypes {
         release {
             minifyEnabled false
@@ -47,108 +46,114 @@ android {
         compose true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion '1.1.1'
+        kotlinCompilerExtensionVersion '1.3.2'
     }
     packagingOptions {
         resources {
+            exclude("META-INF/LICENSE.md")
+            exclude("META-INF/LICENSE-notice.md")
             excludes += '/META-INF/{AL2.0,LGPL2.1}'
         }
     }
 }
 
 dependencies {
+    // Kotlin
+    implementation("androidx.core:core-ktx:1.9.0")
 
-    implementation 'androidx.core:core-ktx:1.7.0'
-    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.3.1'
-    implementation 'androidx.activity:activity-compose:1.3.1'
-    implementation "androidx.compose.ui:ui:$compose_ui_version"
-    implementation "androidx.compose.ui:ui-tooling-preview:$compose_ui_version"
-    implementation 'androidx.compose.material:material:1.1.1'
-    testImplementation 'junit:junit:4.13.2'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.4'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.0'
-    androidTestImplementation "androidx.compose.ui:ui-test-junit4:$compose_ui_version"
-    debugImplementation "androidx.compose.ui:ui-tooling:$compose_ui_version"
-    debugImplementation "androidx.compose.ui:ui-test-manifest:$compose_ui_version"
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.3.1")
+    implementation("androidx.compose.material:material:1.3.1")
 
-    // Material 3
-    implementation 'androidx.compose.material3:material3:1.0.1'
+    // Compose Bill of Materials(Bom)
+    def composeBom = platform("androidx.compose:compose-bom:2022.10.00")
+    implementation composeBom
+    androidTestImplementation composeBom
+
+    // Compose
+    implementation("androidx.compose.material3:material3")
+    implementation("androidx.compose.ui:ui-tooling-preview")
+    debugImplementation("androidx.compose.ui:ui-tooling")
+    debugImplementation("androidx.compose.ui:ui-test-manifest")
+    androidTestImplementation("androidx.compose.ui:ui-test-junit4")
 
     // Use collectAsStateWithLifecycle on Flow
-    implementation "androidx.lifecycle:lifecycle-runtime-compose:2.6.0-alpha03"
+    implementation("androidx.lifecycle:lifecycle-runtime-compose:2.6.0-alpha03")
 
     // ViewModel - compose
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.5.1")
-    implementation("androidx.compose.runtime:runtime-livedata:1.3.2")
+    implementation("androidx.compose.runtime:runtime-livedata")
 
     // Retrofit
-    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
 
     // Retrofit-moshi converter
-    implementation 'com.squareup.retrofit2:converter-moshi:2.9.0'
+    implementation("com.squareup.retrofit2:converter-moshi:2.9.0")
 
     // Interceptor
-    implementation 'com.squareup.okhttp3:logging-interceptor:4.10.0'
+    implementation("com.squareup.okhttp3:logging-interceptor:4.10.0")
 
     // Coroutines
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4"
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4"
-
-    // Coroutines test
-    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4"
-    testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4'
-    androidTestImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4"
-
-    // ViewModel lifecycle
-//    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1'
-
-    // LiveData lifecycle
-//    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.5.1'
-
-    // Activity
-//    implementation 'androidx.activity:activity-ktx:1.6.1'
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4")
 
     // Glide to Load Image and use Cache - Compose
-    implementation "com.github.bumptech.glide:compose:1.0.0-alpha.1"
+    implementation("com.github.bumptech.glide:compose:1.0.0-alpha.1")
 
     // Coil Image - Compose
-    implementation "io.coil-kt:coil-compose:2.2.2"
+    implementation("io.coil-kt:coil-compose:2.2.2")
 
     // Worker
-    implementation "androidx.work:work-runtime-ktx:2.7.1"
+    implementation("androidx.work:work-runtime-ktx:2.7.1")
 
     // Room Database
-    implementation "androidx.room:room-runtime:2.4.3"
-    annotationProcessor("androidx.room:room-compiler:2.4.3")
-//    kapt "androidx.room:room-compiler:2.4.3"
+    implementation("androidx.room:room-runtime:2.4.3")
     kapt("androidx.room:room-compiler:2.4.3")
-    implementation "androidx.room:room-ktx:2.4.3"
+    implementation("androidx.room:room-ktx:2.4.3")
 
     // Gson
-    implementation 'com.google.code.gson:gson:2.9.0'
+    implementation("com.google.code.gson:gson:2.9.0")
 
     // Preferences DataStore
-    implementation "androidx.datastore:datastore-preferences:1.0.0"
-
-    // MockK Unit tests
-    testImplementation "io.mockk:mockk:1.13.2"
-    // MockK instrumented test
-    androidTestImplementation "io.mockk:mockk-android:1.13.2"
+    implementation("androidx.datastore:datastore-preferences:1.0.0")
 
     // Hilt
     implementation("com.google.dagger:hilt-android:2.44")
     kapt("com.google.dagger:hilt-android-compiler:2.44")
+
+    // Accompanist swipe to refresh
+    implementation("com.google.accompanist:accompanist-swiperefresh:0.27.0")
+
+    // Test related
+
+    testImplementation("junit:junit:4.13.2")
+    androidTestImplementation("androidx.test.ext:junit:1.1.4")
+    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.0")
+
+    // MockK Unit tests
+    testImplementation("io.mockk:mockk:1.13.2")
+
+    // MockK instrumented test
+    androidTestImplementation("io.mockk:mockk-android:1.13.2")
+
     // Hilt with navigation
     implementation("androidx.hilt:hilt-navigation-compose:1.0.0")
-
 
     // Hilt instrumented test
     androidTestImplementation("com.google.dagger:hilt-android-testing:2.44")
     kaptAndroidTest("com.google.dagger:hilt-android-compiler:2.44")
 
-    // Cash app Turbine
-    testImplementation 'app.cash.turbine:turbine:0.12.0'
+    // Coroutines test
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4")
+    androidTestImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4")
 
-    // Accompanist swipe to refresh
-    implementation "com.google.accompanist:accompanist-swiperefresh:0.27.0"
+    // Cash app Turbine - test Flow
+    testImplementation("app.cash.turbine:turbine:0.12.0")
+
+    // Navigation test
+    androidTestImplementation("androidx.navigation:navigation-testing:2.5.3")
+
+    // Solve error temporary: Didn't find class "androidx.test.platform.io
+    // .PlatformTestStorageRegistry"
+    debugImplementation("androidx.test:monitor:1.6.0")
 }
