@@ -8,7 +8,7 @@ Android team at Google provide great support for popular library e.g. ViewModel,
 
 ## Screenshots
 
-<img src="/images/screenshots/screenshot_1.png" alt="Screen shot of Capstone News App" height="480"/>&emsp;<img src="/images/screenshots/screenshot_3.png" alt="Screen shot of Capstone News App" height="480"/>
+<img src="/images/screenshots/screenshot_1.png" alt="Screen shot of Capstone News App" height="480"/>&emsp;<img src="/images/screenshots/screenshot_2.png" alt="Screen shot of Capstone News App" height="480"/>
 
 ## 🏠 Architecture
 
