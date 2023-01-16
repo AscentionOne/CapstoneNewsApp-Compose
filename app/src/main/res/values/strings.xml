@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">CapstoneNewsAppCompose</string>
+    <string name="bad_request">Bad Request</string>
+    <string name="news_screen_content_description">News screen</string>
+    <string name="news_detail_screen_content_description">news detail</string>
+    <string name="news_list_content_description">news list</string>
 </resources>

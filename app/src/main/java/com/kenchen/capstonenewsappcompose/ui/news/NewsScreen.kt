@@ -1,6 +1,5 @@
 package com.kenchen.capstonenewsappcompose.ui.news
 
-import android.util.Log
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -15,22 +14,27 @@ import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.IconButton
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -49,14 +53,16 @@ import com.kenchen.capstonenewsappcompose.ui.theme.CapstoneNewsAppComposeTheme
 @Composable
 fun CapstoneNewsApp(
     modifier: Modifier = Modifier,
-    newsViewModel: NewsViewModel = viewModel(),
+//    newsViewModel: NewsViewModel = viewModel(),
+    navController: NavHostController = rememberNavController(),
 ) {
+
 
     var canNavigateBack by remember {
         mutableStateOf(false)
     }
 
-    val navController = rememberNavController()
+//    val navController = rememberNavController()
 
     // add listener to navController to check whether we are in news detail destination or not
     // which is previousBackStackEntry is not null, means we can navigate back
@@ -66,16 +72,21 @@ fun CapstoneNewsApp(
 
     Scaffold(
         topBar = {
-            TopAppBar(canNavigateBack = canNavigateBack,
-                navigateUp = { navController.navigateUp() })
+            TopAppBar(
+                canNavigateBack = canNavigateBack,
+                navigateUp = { navController.navigateUp() },
+            )
         },
     ) { innerPadding ->
 
+        val newsViewModel = hiltViewModel<NewsViewModel>()
         val uiState by newsViewModel.uiState.collectAsState()
 
-        NavHost(navController = navController,
+        NavHost(
+            navController = navController,
             startDestination = CapstoneNewsDestinations.HOME_ROUTE,
-            modifier = modifier.padding(innerPadding)) {
+            modifier = modifier.padding(innerPadding),
+        ) {
             // Home screen
             composable(route = CapstoneNewsDestinations.HOME_ROUTE) {
                 NewsScreen(
@@ -150,6 +161,7 @@ fun NewsScreen(
     onRefresh: () -> Unit,
     onSearchInputChanged: (String) -> Unit,
     searchInput: String,
+    modifier: Modifier = Modifier,
 ) {
 
     val articleList: List<Article> = when (uiState) {
@@ -161,7 +173,9 @@ fun NewsScreen(
     val keyBoardController = LocalSoftwareKeyboardController.current
 //    val focusManager = LocalFocusManager.current
 
-    Column {
+    val newsScreenContentDescription = stringResource(R.string.news_screen_content_description)
+
+    Column(modifier = modifier.semantics { contentDescription = newsScreenContentDescription }) {
         TextField(
             value = searchInput,
             onValueChange = onSearchInputChanged,
@@ -188,8 +202,10 @@ fun NewsScreen(
             onRefresh = onRefresh,
         ) {
             when (uiState) {
-                is HomeUiState.HasNews -> NewsList(articleList = articleList,
-                    onCardClick = onNewsClick)
+                is HomeUiState.HasNews -> NewsList(
+                    articleList = articleList,
+                    onCardClick = onNewsClick,
+                )
                 is HomeUiState.NoNews -> {
                     if (uiState.errorMessages.isEmpty()) {
                         //TODO: not finoshed yet
@@ -227,9 +243,12 @@ fun NewsList(
     onCardClick: (String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    LazyColumn(modifier = modifier,
+    val newsListContentDescription = stringResource(R.string.news_list_content_description)
+    LazyColumn(
+        modifier = modifier.semantics { contentDescription = newsListContentDescription },
         verticalArrangement = Arrangement.spacedBy(8.dp),
-        contentPadding = PaddingValues(8.dp)) {
+        contentPadding = PaddingValues(8.dp),
+    ) {
 
         items(articleList) { news ->
             NewsCard(article = news, onClick = onCardClick)
@@ -291,9 +310,11 @@ fun LoadingNewsScreenContent(
  */
 @Composable
 fun FullScreenLoading() {
-    Box(modifier = Modifier
-        .fillMaxSize()
-        .wrapContentSize(Alignment.Center)) {
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .wrapContentSize(Alignment.Center)
+    ) {
         androidx.compose.material3.CircularProgressIndicator()
     }
 }
@@ -364,10 +385,12 @@ fun NewsCard(article: Article, modifier: Modifier = Modifier, onClick: (String) 
                 imageUrl = article.urlToImage,
                 modifier = Modifier.size(100.dp),
             )
-            NewsInfo(title = article.title,
+            NewsInfo(
+                title = article.title,
                 author = article.author ?: "",
                 date = article.publishedAt,
-                modifier = Modifier.padding(start = 8.dp))
+                modifier = Modifier.padding(start = 8.dp)
+            )
         }
     }
 }

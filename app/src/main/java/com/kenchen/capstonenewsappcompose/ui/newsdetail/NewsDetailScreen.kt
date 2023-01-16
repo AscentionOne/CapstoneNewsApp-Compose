@@ -11,6 +11,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.kenchen.capstonenewsappcompose.model.Article
@@ -26,7 +29,13 @@ fun NewsDetailScreen(uiState: HomeUiState, modifier: Modifier = Modifier) {
     // if is hasNews ---> display detail
     check(uiState is HomeUiState.HasNews)
     val article = uiState.selectedArticle
-    Column(modifier = modifier.padding(horizontal = defaultSpacer)) {
+    val newsDetailScreenContentDescription =
+        stringResource(R.string.news_detail_screen_content_description)
+    Column(
+        modifier = modifier
+            .padding(horizontal = defaultSpacer)
+            .semantics { contentDescription = newsDetailScreenContentDescription },
+    ) {
         NewsDetailHeaderImage(article = article)
         Spacer(modifier = Modifier.height(defaultSpacer))
         NewsDetailContent(article = article)
@@ -70,9 +79,11 @@ fun NewsDetailContent(article: Article) {
 fun AuthorLabel(author: String) {
     Row {
         Image(imageVector = Icons.Filled.AccountCircle, contentDescription = null)
-        Text(text = author,
+        Text(
+            text = author,
             style = MaterialTheme.typography.body1,
-            modifier = Modifier.padding(start = 8.dp))
+            modifier = Modifier.padding(start = 8.dp)
+        )
     }
 }
 
