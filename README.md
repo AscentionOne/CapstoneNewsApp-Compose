@@ -44,15 +44,17 @@ State in compose is usually manage by state holder, which is usually **ViewModel
 
 As compare to the original project I am using `Intent` to navigate between screen. Here I am using **Jetpack Navigation component**. The Navigation component also provides support for Jetpack compose application.
 
-Things to be aware is, if you are mixing **Compose** and **View** in your app it is recommend to use Fragment-based Navigation component. Where your create the Navigation graph in XML. If you are creating a fully composed app you define a navigation graph with a `NavHost` using Compose destination (composable()).
+Things to be aware is, if you are mixing **Compose** and **View** in your app it is recommend to use Fragment-based Navigation component. Where your create the Navigation graph in XML. If you are creating a fully composed app you define a navigation graph with a `NavHost` using Compose destination (`composable()`).
 
-In this project I also perform navigation testing to demonstrate how to test navigation in compose.
+In this project I also perform **navigation testing** to demonstrate how to test navigation in compose.
 
 For more information about Navigation in Compose you can check my notes [here](https://github.com/AscentionOne/android-documentation/blob/master/android_notes.md#navigating-with-compose)
 
-## Others
+## 🙋‍♂️ What about other libraries?
 
-Persistance data, dependency injection, networking is the same as original project
+This is the beauty of migrating the project to Jetpack Compose. A lot of the libraries are actually supported and you do not need to make any changes.
+
+Persistance data (**Room**), dependency injection (**Hilt**), networking (**Retrofit**) is the same as original project
 
 ## 🧪 Testing
 
